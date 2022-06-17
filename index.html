@@ -1,144 +1,110 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffe Store</title>
- 
-  >
- 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-  
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Store  |  Lenin Mejia</title>
+    <link rel="stylesheet" href="/assets/css/style.css" media="screen">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    
+
 </head>
 
 <body>
-
-  
-  </div>
-
-  <!--==================== HEADER ====================-->
-  <header class="header" id="header">
-    <nav class="nav container">
-      <a href="#" class="nav__logo">
-       Coffee Store
-      </a>
-  
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list">
-  
-          <li> <a href="#products" class="nav__link">Products</a> </li>
-  
+    <nav>
+        <ul class="imagenesLeft">
+            <li><a href=""><img src="" alt="">Coffee Store</a></li>
+         <box-icon name='cart' ></box-icon>
+            <li class="navUno"><a href="#contenido">Productos</a></li>
         </ul>
-  
-        <div class="nav__close" id="nav-close">
-          <i class='bx bx-x'></i>
-        </div>
-      </div>
+        <ul class="imagenes">
 
-      <div class="nav__btns">
-         
-             <div class="nav__shop" id="cart-shop">
-          <i class='bx bx-shopping-bag'></i>
-          <span id="cart-count" class="count"></span>
-        </div>
+            <li class="hamburger">
+                <input type="checkbox" id="indicador">
+                <label for="indicador"> <img src="./assets/images/menu-button-of-three-horizontal-lines.png"
+                        alt=""></label>
+                <ul class="ulHamburger">
+                    <li><a href="">Home</a></li>
+                    <li><a href="#contenido">Productos</a></li>
+                </ul>
+            </li>
+            <li><i class="bx bx-shopping-bag"></i>    </li>
+            <li id="carro"><img src="./assets/images/shopping-bag.png" alt="">
+                <div id="articulosEnCarro"></div>
+            </li>
 
-        <div class="nav__toggle" id="nav-toggle">
-          <i class='bx bx-grid-alt'></i>
-        </div>
-      </div>
+        </ul>
     </nav>
-  </header>
-
-  
-  <!--==================== CART ====================-->
-  <div class="cart" id="cart">
-    <i class='bx bx-x cart__close' id="cart-close"></i>
-
-    <h2 class="cart__title-center">My Cart</h2>
-
-    <div class="cart__container"></div>
-
-    <div class="cart__prices">
-      <span class="cart__prices-item"><span id="items-count"></span> items</span>
-      <span class="cart__prices-total" id="cart-total"></span>
-    </div>
-
-    <div class="cart__checkout">
-      <button class="button cart__btn" id="cart-checkout" disabled><i class='bx bxs-check-shield'></i> Checkout</button>
-    </div>
-
-  </div>
-
-  <!--==================== MAIN ====================-->
-  <main class="main">
-
-    <!--==================== HOME ====================-->
-    <section class="home" id="home">
-      <div class="home__container container grid">
+    <div class="home container grid">
         <div class="home__img-bg">
           <img src="assets/img/home.png" alt="" class="home__img">
         </div>
+      
 
         <div class="home__data">
-          <h1 class="home__title">New Sweatshirt <br> COLLECTIONS 2022</h1>
-          <p class="home__description">
-            Latest arrival of the new Hanes Midweight Crewneck sweatshirt imported from the 2022 series, with a modern
-            design.
-          </p>
-          <span class="home__price">$14.00</span>
-
-          <div class="home__btns">
-            <a href="#" class="button button--gray button--small">
-              Agregar a tu lista
-            </a>
-
-            <button class="button home__button">Ordenar</button>
+            <h1 class="home__title">Coffee Express <br> Nuevos productos 2022</h1>
+            <p class="home__description">
+              Latest arrival of the new Hanes Midweight Crewneck sweatshirt imported from the 2022 series, with a modern
+              design.
+            </p>
+            <span class="home__price">$14.00</span>
+  
+            <div class="home__btns">
+              <a href="#" class="button button--gray button--small">
+                Agregar a tu lista </a>
+  
+              <button class="button home__button">Ordenar</button>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    
-    <section class="products" id="products">
-      <div class="products__container container">
-        <ul class="products__filters">
-          <li class="products__item products__line" data-filter="all">
-            <h3 class="products__title">
-            Todos nuestros productos
-            </h3>
-            <span class="products__stock">
-              elige un cafe a tu gusto
-            </span>
-          </li>
-
-            
-
-        <div class="products__content">
-         
-            
-            </article>
-        </div>
-      </div>
-    </section>
-
-  </main>
  
-  <footer class="footer section">
-    <div class="footer__container container grid">
-       
+    </div>
+
+    </section>
+
+    <div class="carroInactivo">
+        <span id="x">x</span>
+        <h2>Mi carrito</h2>
+        <div class="total">
+        </div>
+      
+        <div class="carroVacio">
+            <img id="imgVacio" src="/assets/img/car-empaty.gif" alt="">
+            <h3>No hay productos en el carrito</h3>
+            <p>Agrega productos al carrito para poder comprar</p>
+        </div>
+        <div class="articulosAniadidos">
+          
+        </div>
+        <button class="btn_order btnVacio" onclick="btn_order()"><box-icon name='cart' ></box-icon>Ordenar</p>
+
+        </button>
+         
 
 
-    <span class="footer__copy">&#169; Coffe Store All rigths reserved</span>
+
+
+
+    </div>
+
+    <div>
+        <section class="contenido" id="contenido">
+            <ul class="categoria">
+            </ul>
+            <div class="productos"></div>
+    </div>
+    </section>
+
+    </div>
+
+
+    <footer>
+         <p>Coffee Store 2022, By Lenin Mejia</p>
     </footer>
-    <div class="cart__empty">
-       </div>`
-  
-   
-  <script src="assets/js/main.js" type="module"></script>
-  
+
+    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>

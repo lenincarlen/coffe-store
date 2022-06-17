@@ -1,11 +1,20 @@
- 
 
-let items = [
+let fragmento = ""
+let divVacio = document.querySelector(".carroVacio")
+let divCarrito = document.querySelector(".articulosAniadidos")
+let c3 = 0
+let vacio = false
+let itemsEnCarro = []
+let total = [0, 0]
+let buyBtn=document.querySelector(".btn_order")
+
+let bolsita = document.getElementById("articulosEnCarro")
+const items = [
   {
     id: 1,
     name: 'Hoodies',
     price: 14.00,
-    image: 'assets/img/caffe_1.jpg',
+    image: '/assets/img/caffee_4.png',
     category: 'hoodies',
     quantity: 10
   },
@@ -13,7 +22,7 @@ let items = [
     id: 2,
     name: 'Shirts',
     price: 24.00,
-    image: 'assets/img/caffe_3.jpg',
+    image: '/assets/img/caffee_4.png',
     category: 'shirts',
     quantity: 15
   },
@@ -21,187 +30,255 @@ let items = [
     id: 3,
     name: 'Sweatshirts',
     price: 24.00,
-    image: 'assets/img/caffe_3.jpg',
+    image: '/assets/img/caffee_4.png',
     category: 'sweatshirts',
     quantity: 20
+  },
+  {
+    id: 4,
+    name: 'Sweatshirts',
+    price: 30.00,
+    image: '/assets/img/caffee_4.png',
+    category: 'sweatshirts',
+    quantity: 10
   }
 ]
+let categoria = [
+  {
+    name: "Show all",
+    cantidad: 4,
+  },
+  {
+    name: "Hoodies",
+    cantidad: 1,
+  }, {
+    name: "Shirts",
+    cantidad: 1,
+  }, {
+    name: "Sweatshirts",
+    cantidad: 2,
+  }
+]
+let descarga = JSON.parse(window.localStorage.getItem("arreglo"))
+let descargaTotal = JSON.parse(window.localStorage.getItem("total"))
+if (descarga !== null) {
+  itemsEnCarro = descarga
+
+}
+if (descargaTotal !== null) {
+  bolsita.textContent = descargaTotal[0]
+
+}
 
 
-let cartToggle = document.getElementById('cart-shop')
-let cart = document.getElementById('cart')
-let cartClose = document.getElementById('cart-close')
-let  productsContainer = document.querySelector('#products .products__content')
-let sections = document.querySelectorAll('section[id]')
-let total = carrito.methods.getTotal()
-let cartCount = document.getElementById('cart-count')
-let itemsCount = document.getElementById('items-count')
-let minusItems = document.querySelectorAll('.minus')
-let plusItems = document.querySelectorAll('.plus')
-let deleteButtons = document.querySelectorAll('.cart__amount-trash')
-let totalContainer = document.getElementById('cart-total')
-let checkoutButton = document.getElementById('cart-checkout')
- let carrito = { 
-    data: [],
-    methods: {
-      add: function(product) {
-        this.data.push(product)
+ 
+
+let c = 0
+let categoriaLi = document.querySelector(".categoria")
+categoria.forEach(elemento => {
+  fragmento += `<li>
+<h3 class="liCategoria" data-n=${c} onclick="clickFilter(${c})">${elemento.name}</h3>
+<span>${elemento.cantidad} products</span></li>`
+  c++
+})
+categoriaLi.innerHTML = fragmento
+
+ 
+fragmento = ""
+let divAniadir = document.querySelector(".productos")
+let c2 = 0
+items.forEach(element => {
+  fragmento += `<div>
+    <div class="imagen"><img src="${element.image}" alt=""></div>
+    <button data.n="${c2}" onclick="carrito(${c2})" class"aniadir">+</button><br><span class="texto-medio">$${element.price} </span><span class="texto-bajo">| Stock: ${element.quantity}</span><br><span class="texto-medio">${element.name}</span>
+</div>`
+  c2++
+})
+divAniadir.innerHTML = fragmento
+ 
+function clickFilter(id) {
+  filtro = document.getElementsByClassName("liCategoria")
+  filtrar = filtro[id].textContent
+  let aux = items.filter(articulo => {
+    let conn = true
+    if (id === 0) {
+      conn = true
+    } else { conn = articulo.name === filtrar }
+    return conn
+  })
+ 
+  fragmento = ""
+  aux.forEach(element => {
+    fragmento += `<div>
+      <div class="imagen"><img src="${element.image}" alt=""></div>
+      <button onclick="carrito(${element.id-1})" class="aniadir">+</button><br><span class="texto-medio">$${element.price} </span><span class="texto-bajo">| Stock: ${element.quantity}</span><br><span class="texto-medio">${element.name}</span>
+  </div>`
+  })
+  divAniadir.innerHTML = fragmento
+
+}
+ 
+let carro = document.getElementById("carro")
+let divCarro = document.querySelector(".carroInactivo")
+
+carro.addEventListener("click", () => {
+
+  divCarro.classList.add("carrito")
+  if (itemsEnCarro[0] !== undefined && vacio === false) {
+    //desaparecer el div
+    divVacio.classList.add("carroVacioNone")
+    vacio = true
+    if (itemsEnCarro !== null) {
+      imprimirArray(itemsEnCarro) 
+    }
+
+  }
+})
+
+ 
+let x = document.querySelector(".carroInactivo>span")
+x.addEventListener("click", () => {
+  divCarro.classList.remove("carrito")
+})
+
+ 
+
+
+function carrito(id) {
+  
+   
+    let aux = {
+      id: id,
+      idp: id,
+      name: items[id].name,
+      price: items[id].price,
+      image: items[id].image,
+      category: items[id].category,
+      quantity: items[id].quantity,
+      cantidad: 1,
+    }
+    itemsEnCarro.push(aux)
+    itemsEnCarro[itemsEnCarro.length - 1].id = itemsEnCarro.length - 1
+    let a = 0
+    let pos = []
+    for (i = 0; i <= itemsEnCarro.length - 1; i++) {
+      a = 0
+      pos = []
+      for (j = 0; j <= itemsEnCarro.length - 1; j++) {
+        if (itemsEnCarro[i].idp === itemsEnCarro[j].idp) {//es id es la posicion
+          a++
+          if (a >= 2) { pos.push(j) }
+        }
+      }
+    
+      for (k = pos.length - 1; k >= 0; k--) {
+  
+        itemsEnCarro.splice(pos[k], 1)
+        itemsEnCarro[i].cantidad++
       }
     }
-  }
-  init()
-  cartToggle.addEventListener('click', () => {
-    cart.classList.toggle('cart--open')
-  }
-  )
-  cartClose.addEventListener('click', () => {
-    cart.classList.remove('cart--open') // cierra el carrito
-  }
-  )
-  productsContainer.addEventListener('click', (e) => {
-    if (e.target.classList.contains('cart__amount-trash')) {
-      let id = e.target.dataset.id
-      carrito.methods.remove(id)
-      e.target.parentElement.parentElement.remove()
-      updateCart()
-    } else if (e.target.classList.contains('plus')) {
-      let id = e.target.dataset.id
-      carrito.methods.add(id)
-      updateCart()
-    } else if (e.target.classList.contains('minus')) {
-      let id = e.target.dataset.id
-      carrito.methods.remove(id)
-      updateCart()
-    } else if (e.target.classList.contains('cart__amount-input')) {
-      let id = e.target.dataset.id
-      carrito.methods.update(id, e.target.value)
-      updateCart()
-    } else if (e.target.classList.contains('cart__amount-plus')) {
-      let id = e.target.dataset.id
-      carrito.methods.add(id)
-      updateCart()
-    } else if (e.target.classList.contains('cart__amount-minus')) {
-      let id = e.target.dataset.id
-      carrito.methods.remove(id)
-      updateCart()
-    
-    }
-  } 
-
-  )
-  function updateCart() {
-    let cartItems = carrito.methods.getAll()
-    let total = carrito.methods.getTotal()
-    cartCount.innerHTML = cartItems.length
-    itemsCount.innerHTML = cartItems.length
-    totalContainer.innerHTML = total
-    if (cartItems.length > 0) {
-      cart.classList.add('cart--open')
-    } else {
-      cart.classList.remove('cart--open')
-    } 
-  }
-  function mostrarCarrito() {
-    let cartItems = carrito.methods.getAll()
-    let total = carrito.methods.getTotal()
-    cartCount.innerHTML = cartItems.length
-    itemsCount.innerHTML = cartItems.length
-    totalContainer.innerHTML = total
-    if (cartItems.length > 0) {
-      cart.classList.add('cart--open')
-    } else {
-      cart.classList.remove('cart--open')
-    }
-  }
-  function actualizarCantidad() {
-    let cartItems = carrito.methods.getAll()
-    let total = carrito.methods.getTotal()
-    cartCount.innerHTML = cartItems.length
-    itemsCount.innerHTML = cartItems.length
-    totalContainer.innerHTML = total
-    if (cartItems.length > 0) {
-      cart.classList.add('cart--open')
-    } else {
-      cart.classList.remove('cart--open')
-    }
-  }
-  function numberToCurrency(number) {
-    return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-  }
-  function init() {
-    mostrarCarrito()
-    actualizarCantidad()
-  }
-  function mostrarProductos() {
-    let html = ''
-    products.forEach(product => {
-      html += `
-      <div class="product">
-        <div class="product__image">
-          <img src="${product.image}" alt="${product.name}">
-        </div>
-        <div class="product__info">
-          <h2 class="product__name">${product.name}</h2>
-          <h3 class="product__price">${numberToCurrency(product.price)}</h3>
-          <div class="product__amount">
-            <button class="product__amount-minus">-</button>
-            <input class="product__amount-input" type="number" value="1">
-            <button class="product__amount-plus">+</button>
-          </div>
-          <button class="product__add" data-id="${product.id}">Agregar</button>
-        </div>
-      </div>
-      `
-    })
-    productsContainer.innerHTML = html
-  }
-  function mostrarCategorias() {
-    let html = ''
-    products.forEach(product => {
-      html += `
-      <div class="product">
-        <div class="product__image">
-          <img src="${product.image}" alt="${product.name}">
-        </div>
-        <div class="product__info">
-          <h2 class="product__name">${product.name}</h2>
-          <h3 class="product__price">${numberToCurrency(product.price)}</h3>
-          <div class="product__amount">
-            <button class="product__amount-minus">-</button>
-            <input class="product__amount-input" type="number" value="1">
-            <button class="product__amount-plus">+</button>
-          </div>
-          <button class="product__add" data-id="${product.id}">Agregar</button>
-        </div>
-      </div>
-      `
-    })
-    productsContainer.innerHTML = html
-  }
   
+    
 
- Function mostrarProductos() {
-    let html = ''
-    products.forEach(product => { 
-      html += `
-      <div class="product">
-        <div class="product__image">
-          <img src="${product.image}" alt="${product.name}">
-        </div>
-        <div class="product__info">
-          <h2 class="product__name">${product.name}</h2>
-          <h3 class="product__price">${numberToCurrency(product.price)}</h3>
-          <div class="product__amount">
-            <button class="product__amount-minus">-</button>
-            <input class="product__amount-input" type="number" value="1">
-            <button class="product__amount-plus">+</button>
-          </div>
-          <button class="product__add" data-id="${product.id}">Agregar</button>
-        </div>
-      </div>
-      `
-    })
-    productsContainer.innerHTML = html  
-
+     ]
+          if (vacio === false) {
+            divVacio.classList.add("carroVacioNone")
+            vacio = true
+          }
+        
+        
+      
+          imprimirArray(itemsEnCarro)
+  
+  
+   
   }
  
+function clickMasMenos(id, boo) {
+  //modificar en el array la cantidad
+    if (boo === true) {
+      itemsEnCarro[id].cantidad++
+    } else { itemsEnCarro[id].cantidad-- }
+
+
+   
+    imprimirArray(itemsEnCarro)
+  
+
+
+
+}
+function Eliminar(id) {
+ 
+  let posItem = itemsEnCarro[id].idp
+  itemsEnCarro.splice(id, 1)
+  
+  for (i = id; i <= itemsEnCarro.length - 1; i++) {
+    itemsEnCarro[i].id--
+  }
+ 
+  if (itemsEnCarro[0] === undefined) {
+    divVacio.classList.remove("carroVacioNone")
+    vacio = false
+    buyBtn.classList.add("btnVacio")
+  }
+}
+
+
+function imprimirArray(arreglo) {
+ 
+
+
+
+  fragmento = ""
+  arreglo.forEach(elements => {
+    fragmento += `
+    <div class="tarjetaProducto">
+    <img src="${elements.image}" alt="">
+    <div>
+        <h3>${elements.name}</h3>
+        <span class="gris">Stock: ${elements.quantity} |</span><span class="rojo"> $${elements.price}</span><br>
+        <span class="rojo texto-medio">Subtotal: $${elements.cantidad * elements.price}</span>
+        <div><span class="botonUnidades" onclick="clickMasMenos(${elements.id},false)">-</span><span class="texto-medio">${elements.cantidad} units</span><span class="botonUnidades" onclick="clickMasMenos(${elements.id},true)">+</span><i onclick="Eliminar(${elements.id})"><img src="/assets/img/remove.png" height="20px"  alt=""></i></div>
+    </div>
+    </div>`
+  })
+  divCarrito.innerHTML = fragmento
+ 
+  let subir = JSON.stringify(arreglo)
+  window.localStorage.setItem("arreglo", subir)
+
+ 
+  total[0] = 0
+  total[1] = 0
+  for (i = 0; i <= arreglo.length - 1; i++) {
+    total[0] = total[0] + arreglo[i].cantidad
+    total[1] = total[1] + arreglo[i].cantidad * arreglo[i].price
+  }
+
+ 
+  fragmento = ""
+  fragmento = `
+  <span id="items">${total[0]} items</span><span id="precio">$${total[1]}</span>`
+  let divTotal = document.querySelector(".total")
+  divTotal.innerHTML = fragmento
+ 
+  window.localStorage.setItem("total", JSON.stringify(total))
+
+  bolsita.textContent = total[0]
+
+
+buyBtn.classList.remove("btnVacio")
+}
+function btn_order(){
+  itemsEnCarro=[]
+  imprimirArray(itemsEnCarro)
+  window.alert("Gracias por su compra")
+
+  if (itemsEnCarro[0] === undefined) {
+    divVacio.classList.remove("carroVacioNone")
+    vacio = false
+  }
+  
+  buyBtn.classList.add("btnVacio")
+}
