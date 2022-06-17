@@ -83,7 +83,7 @@ categoria.forEach(elemento => {
 })
 categoriaLi.innerHTML = fragmento
 
- 
+//Añadir tarjetas
 fragmento = ""
 let divAniadir = document.querySelector(".productos")
 let c2 = 0
@@ -95,6 +95,7 @@ items.forEach(element => {
   c2++
 })
 divAniadir.innerHTML = fragmento
+
  
 function clickFilter(id) {
   filtro = document.getElementsByClassName("liCategoria")
@@ -106,6 +107,7 @@ function clickFilter(id) {
     } else { conn = articulo.name === filtrar }
     return conn
   })
+
  
   fragmento = ""
   aux.forEach(element => {
@@ -125,11 +127,11 @@ carro.addEventListener("click", () => {
 
   divCarro.classList.add("carrito")
   if (itemsEnCarro[0] !== undefined && vacio === false) {
-    //desaparecer el div
+  
     divVacio.classList.add("carroVacioNone")
     vacio = true
     if (itemsEnCarro !== null) {
-      imprimirArray(itemsEnCarro) 
+      imprimirArray(itemsEnCarro)//??
     }
 
   }
@@ -146,7 +148,6 @@ x.addEventListener("click", () => {
 
 function carrito(id) {
   
-   
     let aux = {
       id: id,
       idp: id,
@@ -170,7 +171,7 @@ function carrito(id) {
           if (a >= 2) { pos.push(j) }
         }
       }
-    
+      //eliminar de atras
       for (k = pos.length - 1; k >= 0; k--) {
   
         itemsEnCarro.splice(pos[k], 1)
@@ -179,14 +180,13 @@ function carrito(id) {
     }
   
     
-
-     ]
+ 
           if (vacio === false) {
             divVacio.classList.add("carroVacioNone")
             vacio = true
           }
         
-        
+ 
       
           imprimirArray(itemsEnCarro)
   
@@ -195,13 +195,12 @@ function carrito(id) {
   }
  
 function clickMasMenos(id, boo) {
-  //modificar en el array la cantidad
+ 
     if (boo === true) {
       itemsEnCarro[id].cantidad++
     } else { itemsEnCarro[id].cantidad-- }
 
-
-   
+ 
     imprimirArray(itemsEnCarro)
   
 
@@ -212,10 +211,11 @@ function Eliminar(id) {
  
   let posItem = itemsEnCarro[id].idp
   itemsEnCarro.splice(id, 1)
-  
+ 
   for (i = id; i <= itemsEnCarro.length - 1; i++) {
     itemsEnCarro[i].id--
   }
+  imprimirArray(itemsEnCarro)
  
   if (itemsEnCarro[0] === undefined) {
     divVacio.classList.remove("carroVacioNone")
@@ -244,7 +244,7 @@ function imprimirArray(arreglo) {
     </div>`
   })
   divCarrito.innerHTML = fragmento
- 
+  //almacenar el array
   let subir = JSON.stringify(arreglo)
   window.localStorage.setItem("arreglo", subir)
 
@@ -262,6 +262,7 @@ function imprimirArray(arreglo) {
   <span id="items">${total[0]} items</span><span id="precio">$${total[1]}</span>`
   let divTotal = document.querySelector(".total")
   divTotal.innerHTML = fragmento
+
  
   window.localStorage.setItem("total", JSON.stringify(total))
 
