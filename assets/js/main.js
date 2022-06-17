@@ -12,15 +12,15 @@ let bolsita = document.getElementById("articulosEnCarro")
 const items = [
   {
     id: 1,
-    name: 'Hoodies',
+    name: 'Coffee Express',
     price: 14.00,
     image: '/assets/img/caffee_4.png',
-    category: 'hoodies',
+    category: 'Cafe',
     quantity: 10
   },
   {
     id: 2,
-    name: 'Shirts',
+    name: 'Coffee Express',
     price: 24.00,
     image: '/assets/img/caffee_4.png',
     category: 'shirts',
@@ -28,7 +28,7 @@ const items = [
   },
   {
     id: 3,
-    name: 'Sweatshirts',
+    name: 'Coffee Capuchino',
     price: 24.00,
     image: '/assets/img/caffee_4.png',
     category: 'sweatshirts',
@@ -36,7 +36,7 @@ const items = [
   },
   {
     id: 4,
-    name: 'Sweatshirts',
+    name: 'Frapuccino',
     price: 30.00,
     image: '/assets/img/caffee_4.png',
     category: 'sweatshirts',
@@ -45,17 +45,17 @@ const items = [
 ]
 let categoria = [
   {
-    name: "Show all",
+    name: "Coffee Express",
     cantidad: 4,
   },
   {
-    name: "Hoodies",
+    name: "Coffee Tradicional",
     cantidad: 1,
   }, {
     name: "Shirts",
     cantidad: 1,
   }, {
-    name: "Sweatshirts",
+    name: "Coffee Classico",
     cantidad: 2,
   }
 ]
