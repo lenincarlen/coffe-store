@@ -332,8 +332,8 @@ cursor: pointer;
     row-gap: 2.5rem;
 }
 .container {
-    max-width: 80%;
-    margin-left: 10%;
+    width: 100%;
+    
     margin-right:10%;
     padding-top: 6rem;
     grid-template-columns: 1fr max-content;
